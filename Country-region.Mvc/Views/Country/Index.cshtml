@@ -1,0 +1,129 @@
+﻿
+@model IEnumerable<Yangi.DATA.Models.Country>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Country";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@using (Html.BeginForm("Index", "Country", FormMethod.Post))
+{
+    <p>
+             <form asp-controller="Country" asp-action="Index" method="get">
+                Saralash: @Html.TextBox("number", ViewBag.CurrentFilter as string)
+                          @Html.TextBox("min", ViewBag.CurrentFiltermin as string)
+                          @Html.TextBox("max", ViewBag.CurrentFiltermax as string)
+                  <input type="submit"  value="Filter" class="button button5"/>               
+             </form>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               <a style="color: black;"   > 
+                   @Html.ActionLink(" Name", "Index", new { sortOrder = ViewBag.SortParm,indexsort=1,
+                         min = ViewBag.CurrentFiltermin,
+                         max = ViewBag.CurrentFiltermax,
+                       number=ViewBag.CurrentFilter})
+               <img src="https://cdn-icons.flaticon.com/png/512/3545/premium/3545733.png?token=exp=1645012327~hmac=754c956abfe633b474a6b76a3ee6ca65" alt="eroor" width="15"  />    
+               </a>
+            </th>
+            <th>
+                Shortname 
+            </th>
+            <th>
+                  Code
+            </th>
+            <th>
+                <a style="color: black">
+                    @Html.ActionLink("Population", "Index", new { sortOrder = ViewBag.SortParm,indexsort=2,
+                        min = ViewBag.CurrentFiltermin,
+                        max = ViewBag.CurrentFiltermax,
+                        number=ViewBag.CurrentFilter }) 
+                    <img src="https://cdn-icons.flaticon.com/png/512/3545/premium/3545733.png?token=exp=1645012327~hmac=754c956abfe633b474a6b76a3ee6ca65" alt="eroor" width ="15" />
+                    
+                </a>
+            </th>
+            <th>  
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Population)
+            </td>
+            <td>
+                <a style="color: #041562; font-style:italic" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a style="color: #2EB086; font-style:italic" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a style="color:#DA1212; font-style:italic" asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+
+</table>
+
+<br />
+
+@for(int i = 1; i <= ViewBag.Pages; i++)
+{
+    <a>
+
+        @Html.ActionLink($"{@i}","Index", new { numberpage=i, 
+            sortOrder = ViewBag.CurrentSort,
+            number = ViewBag.CurrentFilter,
+            min = ViewBag.CurrentFiltermin,
+            max = ViewBag.CurrentFiltermax,
+            indexsort=ViewBag.Index })
+    </a>
+}
+
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.button5 {
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+}
+.button5:hover {
+  background-color: #555555;
+  color: white;
+}
+</style>
+

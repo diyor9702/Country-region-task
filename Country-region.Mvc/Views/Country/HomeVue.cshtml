@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Yangi.DATA.Models.Country>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>HomeVue</h1>
+
+<h5><a href="#"  class="Link-success">Create new</a></h5>
+
+<div id="app">
+        <form class="row g-4 needs-validation" novalidate d-inline-flex >
+          <div class="col-auto">
+                <label  class="form-label" style="font-style:italic">number</label>
+                <input type="text" class="form-control" v-model="number"  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+          </div>
+          <div class="col-auto">
+                <label  class="form-label" style="font-style:italic">min</label>
+                <input type="text" class="form-control" v-model="min"  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+          </div>
+            <div class="col-auto">
+                <label class="form-label" style="font-style:italic">max</label>
+                <input type="text" class="form-control" v-model="max" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+          </div>
+          <div class="col-auto">
+                <button v-on:click="sendToServer" class="btn btn-primary" type="button" style="margin-top:30px">Submit</button>
+          </div>
+    </form>
+    <br/>
+
+
+    <div>
+        <table class="table table-sm">
+           <thead>
+            <tr>
+              <th  scope="col" > <button v-on:click=" sortToServer(1)"  class="btn btn-link" type="button">Name</button></th>
+              <th scope="col">Shortname</th>
+              <th scope="col">Code</th>
+              <th scope="col"><button v-on:click="sortToServer(2)"  class="btn btn-link" type="button" >Population</button></th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody v-for="friend in logs.countries">
+            <tr>
+              <td>{{friend.name}}</td>
+              <td>{{friend.shortName}}</td>
+              <td>{{friend.code}}</td>
+              <td>{{friend.population}}</td>
+              <td>  
+                    <a href="#" class="link link-success">Edit</a>
+                    <a href="#" class="link-secondary">Details</a>
+                    <a href="#" class="link-danger">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+       </table>
+
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic outlined example" v-for="item in logs.pagesnumber" style="display:inline-block;" >
+        <button class="btn btn-outline-primary" type="button"  v-on:click="numberpage=item; sortTopage()">{{item}}</button>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: { 
+          logs: @Json.Serialize(Model),
+          min: '',
+          max:'',
+          number:'',
+          indexsort:"",
+          sortOrder:"",
+          numberpage:1,
+          allpages: @Html.Raw(Json.Serialize(@ViewBag.Pages))
+        },
+        mounted:function(){
+            axios({
+                        method: 'get',
+                        url:  '/country/getcountryvue/',
+                        params: {
+                            "min": null,
+                        "max": null,
+                        "number": null,
+                        }
+                    })
+                    .then(response => (this.logs = response.data))
+                    .catch(function (error) {
+                        console.log(error);
+                    }); 
+        },
+         methods: {
+        sortTopage: function () {
+           
+            axios({
+                    method: 'get',
+                    url: '/country/getcountryvue/',
+                    params: {
+                        "min": this.min,
+                        "max": this.max,
+                        "number": this.number,
+                        "sortOrder": this.sortOrder,
+                        "indexsort":this.indexsort,
+                        "numberpage": this.numberpage
+                    }
+                })
+                .then( response=>(this.logs=response.data))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+             },
+        sortToServer: function (arg) {
+            this.indexsort=arg;
+            if(this.sortOrder=="Name") this.sortOrder="Reversename";
+            else this.sortOrder="Name";
+            axios({
+                    method: 'get',
+                    url: '/country/getcountryvue',
+                    params: {
+                        "min": this.min,
+                        "max": this.max,
+                        "number": this.number,
+                        "sortOrder": this.sortOrder,
+                        "indexsort":this.indexsort,
+                        "numberpage": this.numberpage
+                        
+                    }
+                })
+                .then( response=>(this.logs=response.data))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+             },
+        sendToServer: function () 
+             {
+            axios(
+                {
+                    method: 'get',
+                    url: '/country/getcountryvue',
+                    params:
+                    {
+                        "min": this.min,
+                        "max": this.max,
+                        "number": this.number,
+                    }
+                })
+                    .then( response=>(this.logs=response.data))
+                    .catch(function (error)
+                    {
+                        console.log(error);
+                    });
+
+             }
+         }
+    })
+</script >

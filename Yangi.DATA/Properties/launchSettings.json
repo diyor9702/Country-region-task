@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Yangi.DATA": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\Country-region.MVC-master\\Country-region.MVC-master\\Country-region.Mvc",
+      "remoteDebugEnabled": false
+    }
+  }
+}

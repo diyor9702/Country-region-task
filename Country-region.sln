@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Country-region.Mvc", "Country-region.Mvc\Country-region.Mvc.csproj", "{01A90A06-7786-4961-94C3-BE7DCE9C2C08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yangi.DATA", "Yangi.DATA\Yangi.DATA.csproj", "{0966624A-059D-4572-999B-F1FA34CB3F7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01A90A06-7786-4961-94C3-BE7DCE9C2C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A90A06-7786-4961-94C3-BE7DCE9C2C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A90A06-7786-4961-94C3-BE7DCE9C2C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A90A06-7786-4961-94C3-BE7DCE9C2C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0966624A-059D-4572-999B-F1FA34CB3F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0966624A-059D-4572-999B-F1FA34CB3F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0966624A-059D-4572-999B-F1FA34CB3F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0966624A-059D-4572-999B-F1FA34CB3F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B76D06D-2C1B-45DB-9587-11020A785132}
+	EndGlobalSection
+EndGlobal
